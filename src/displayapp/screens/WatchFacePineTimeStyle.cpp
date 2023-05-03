@@ -91,43 +91,50 @@ WatchFacePineTimeStyle::WatchFacePineTimeStyle(Controllers::DateTime& dateTimeCo
   lv_obj_set_size(sidebar, 40, 240);
   lv_obj_align(sidebar, lv_scr_act(), LV_ALIGN_IN_TOP_RIGHT, 0, 0);
 
+  // Color of the icons
+  if (settingsController.GetPTSColorBar() == Pinetime::Controllers::Settings::Colors::Black) {
+    iconColor = LV_COLOR_WHITE;
+  } else {
+    iconColor = LV_COLOR_BLACK;
+  }
+
   // Display icons
   batteryIcon.Create(sidebar);
-  batteryIcon.SetColor(LV_COLOR_BLACK);
+  batteryIcon.SetColor(iconColor);
   lv_obj_align(batteryIcon.GetObject(), nullptr, LV_ALIGN_IN_TOP_MID, 0, 2);
 
   plugIcon = lv_label_create(lv_scr_act(), nullptr);
   lv_label_set_text_static(plugIcon, Symbols::plug);
-  lv_obj_set_style_local_text_color(plugIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
+  lv_obj_set_style_local_text_color(plugIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
   lv_obj_align(plugIcon, sidebar, LV_ALIGN_IN_TOP_MID, 0, 2);
 
   bleIcon = lv_label_create(lv_scr_act(), nullptr);
-  lv_obj_set_style_local_text_color(bleIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
+  lv_obj_set_style_local_text_color(bleIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
   lv_label_set_text_static(bleIcon, "");
 
   notificationIcon = lv_label_create(lv_scr_act(), nullptr);
-  lv_obj_set_style_local_text_color(notificationIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
+  lv_obj_set_style_local_text_color(notificationIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
   lv_label_set_text_static(notificationIcon, "");
 
   // Display date
   dateDayOfWeek = lv_label_create(lv_scr_act(), nullptr);
-  lv_obj_set_style_local_text_color(dateDayOfWeek, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
+  lv_obj_set_style_local_text_color(dateDayOfWeek, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
   lv_label_set_text_static(dateDayOfWeek, "THU");
   lv_obj_align(dateDayOfWeek, sidebar, LV_ALIGN_CENTER, 0, -22);
 
   dateDay = lv_label_create(lv_scr_act(), nullptr);
-  lv_obj_set_style_local_text_color(dateDay, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
+  lv_obj_set_style_local_text_color(dateDay, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
   lv_label_set_text_static(dateDay, "25");
   lv_obj_align(dateDay, sidebar, LV_ALIGN_CENTER, 0, -4);
 
   dateMonth = lv_label_create(lv_scr_act(), nullptr);
-  lv_obj_set_style_local_text_color(dateMonth, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
+  lv_obj_set_style_local_text_color(dateMonth, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
   lv_label_set_text_static(dateMonth, "MAR");
   lv_obj_align(dateMonth, sidebar, LV_ALIGN_CENTER, 0, 16);
 
   // Step count gauge
   if (settingsController.GetPTSColorBar() == Pinetime::Controllers::Settings::Colors::White) {
-    needle_colors[0] = LV_COLOR_BLACK;
+    needle_colors[0] = iconColor;
   } else {
     needle_colors[0] = LV_COLOR_WHITE;
   }
@@ -157,13 +164,13 @@ WatchFacePineTimeStyle::WatchFacePineTimeStyle(Controllers::DateTime& dateTimeCo
   lv_obj_set_style_local_line_opa(stepGauge, LV_GAUGE_PART_MAIN, LV_STATE_DEFAULT, LV_OPA_COVER);
   lv_obj_set_style_local_scale_width(stepGauge, LV_GAUGE_PART_MAIN, LV_STATE_DEFAULT, 4);
   lv_obj_set_style_local_line_width(stepGauge, LV_GAUGE_PART_MAIN, LV_STATE_DEFAULT, 4);
-  lv_obj_set_style_local_line_color(stepGauge, LV_GAUGE_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
+  lv_obj_set_style_local_line_color(stepGauge, LV_GAUGE_PART_MAIN, LV_STATE_DEFAULT, iconColor);
   lv_obj_set_style_local_line_opa(stepGauge, LV_GAUGE_PART_NEEDLE, LV_STATE_DEFAULT, LV_OPA_COVER);
   lv_obj_set_style_local_line_width(stepGauge, LV_GAUGE_PART_NEEDLE, LV_STATE_DEFAULT, 3);
   lv_obj_set_style_local_pad_inner(stepGauge, LV_GAUGE_PART_NEEDLE, LV_STATE_DEFAULT, 4);
 
   stepValue = lv_label_create(lv_scr_act(), nullptr);
-  lv_obj_set_style_local_text_color(stepValue, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
+  lv_obj_set_style_local_text_color(stepValue, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
   lv_label_set_text_static(stepValue, "0");
   lv_obj_align(stepValue, sidebar, LV_ALIGN_IN_BOTTOM_MID, 0, 0);
   if (settingsController.GetPTSGaugeStyle() == Pinetime::Controllers::Settings::PTSGaugeStyle::Numeric) {
@@ -173,7 +180,7 @@ WatchFacePineTimeStyle::WatchFacePineTimeStyle(Controllers::DateTime& dateTimeCo
   }
 
   stepIcon = lv_label_create(lv_scr_act(), nullptr);
-  lv_obj_set_style_local_text_color(stepIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
+  lv_obj_set_style_local_text_color(stepIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
   lv_label_set_text_static(stepIcon, Symbols::shoe);
   lv_obj_align(stepIcon, stepValue, LV_ALIGN_OUT_TOP_MID, 0, 0);
   if (settingsController.GetPTSGaugeStyle() == Pinetime::Controllers::Settings::PTSGaugeStyle::Numeric) {
@@ -184,7 +191,7 @@ WatchFacePineTimeStyle::WatchFacePineTimeStyle(Controllers::DateTime& dateTimeCo
 
   // Display seconds
   timeDD3 = lv_label_create(lv_scr_act(), nullptr);
-  lv_obj_set_style_local_text_color(timeDD3, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
+  lv_obj_set_style_local_text_color(timeDD3, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
   lv_label_set_text_static(timeDD3, ":00");
   lv_obj_align(timeDD3, sidebar, LV_ALIGN_IN_BOTTOM_MID, 0, 0);
   if (settingsController.GetPTSGaugeStyle() == Pinetime::Controllers::Settings::PTSGaugeStyle::Half) {
@@ -510,29 +517,56 @@ void WatchFacePineTimeStyle::UpdateSelected(lv_obj_t* object, lv_event_t event) 
     }
     if (object == btnNextBar) {
       valueBar = GetNext(valueBar);
-      if (valueBar == Controllers::Settings::Colors::Black) {
-        valueBar = GetNext(valueBar);
-      }
       if (valueBar == Controllers::Settings::Colors::White) {
         needle_colors[0] = LV_COLOR_BLACK;
       } else {
         needle_colors[0] = LV_COLOR_WHITE;
       }
+      if (valueBar == Controllers::Settings::Colors::Black) {
+        iconColor = LV_COLOR_WHITE;
+      } else {
+        iconColor = LV_COLOR_BLACK;
+      }
+
       settingsController.SetPTSColorBar(valueBar);
       lv_obj_set_style_local_bg_color(sidebar, LV_BTN_PART_MAIN, LV_STATE_DEFAULT, Convert(valueBar));
+      batteryIcon.SetColor(iconColor);
+      lv_obj_set_style_local_text_color(plugIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(bleIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(notificationIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(dateDayOfWeek, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(dateDay, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(dateMonth, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_line_color(stepGauge, LV_GAUGE_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(stepValue, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(stepIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(timeDD3, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
     }
     if (object == btnPrevBar) {
       valueBar = GetPrevious(valueBar);
-      if (valueBar == Controllers::Settings::Colors::Black) {
-        valueBar = GetPrevious(valueBar);
-      }
       if (valueBar == Controllers::Settings::Colors::White) {
         needle_colors[0] = LV_COLOR_BLACK;
       } else {
         needle_colors[0] = LV_COLOR_WHITE;
       }
+      if (valueBar == Controllers::Settings::Colors::Black) {
+        iconColor = LV_COLOR_WHITE;
+      } else {
+        iconColor = LV_COLOR_BLACK;
+      }
       settingsController.SetPTSColorBar(valueBar);
       lv_obj_set_style_local_bg_color(sidebar, LV_BTN_PART_MAIN, LV_STATE_DEFAULT, Convert(valueBar));
+      batteryIcon.SetColor(iconColor);
+      lv_obj_set_style_local_text_color(plugIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(bleIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(notificationIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(dateDayOfWeek, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(dateDay, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(dateMonth, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_line_color(stepGauge, LV_GAUGE_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(stepValue, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(stepIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(timeDD3, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
     }
     if (object == btnNextBG) {
       valueBG = GetNext(valueBG);
@@ -552,6 +586,7 @@ void WatchFacePineTimeStyle::UpdateSelected(lv_obj_t* object, lv_event_t event) 
     }
     if (object == btnReset) {
       needle_colors[0] = LV_COLOR_WHITE;
+      iconColor = LV_COLOR_BLACK;
       settingsController.SetPTSColorTime(Controllers::Settings::Colors::Teal);
       lv_obj_set_style_local_text_color(timeDD1, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, Convert(Controllers::Settings::Colors::Teal));
       lv_obj_set_style_local_text_color(timeDD2, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, Convert(Controllers::Settings::Colors::Teal));
@@ -560,6 +595,17 @@ void WatchFacePineTimeStyle::UpdateSelected(lv_obj_t* object, lv_event_t event) 
       lv_obj_set_style_local_bg_color(sidebar, LV_BTN_PART_MAIN, LV_STATE_DEFAULT, Convert(Controllers::Settings::Colors::Teal));
       settingsController.SetPTSColorBG(Controllers::Settings::Colors::Black);
       lv_obj_set_style_local_bg_color(timebar, LV_BTN_PART_MAIN, LV_STATE_DEFAULT, Convert(Controllers::Settings::Colors::Black));
+      batteryIcon.SetColor(iconColor);
+      lv_obj_set_style_local_text_color(plugIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(bleIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(notificationIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(dateDayOfWeek, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(dateDay, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(dateMonth, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_line_color(stepGauge, LV_GAUGE_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(stepValue, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(stepIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(timeDD3, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
     }
     if (object == btnRandom) {
       valueTime = static_cast<Controllers::Settings::Colors>(rand() % 17);
@@ -568,13 +614,15 @@ void WatchFacePineTimeStyle::UpdateSelected(lv_obj_t* object, lv_event_t event) 
       if (valueTime == valueBG) {
         valueBG = GetNext(valueBG);
       }
-      if (valueBar == Controllers::Settings::Colors::Black) {
-        valueBar = GetPrevious(valueBar);
-      }
       if (valueBar == Controllers::Settings::Colors::White) {
         needle_colors[0] = LV_COLOR_BLACK;
       } else {
         needle_colors[0] = LV_COLOR_WHITE;
+      }
+      if (valueBar == Controllers::Settings::Colors::Black) {
+        iconColor = LV_COLOR_WHITE;
+      } else {
+        iconColor = LV_COLOR_BLACK;
       }
       settingsController.SetPTSColorTime(static_cast<Controllers::Settings::Colors>(valueTime));
       lv_obj_set_style_local_text_color(timeDD1, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, Convert(valueTime));
@@ -584,6 +632,17 @@ void WatchFacePineTimeStyle::UpdateSelected(lv_obj_t* object, lv_event_t event) 
       lv_obj_set_style_local_bg_color(sidebar, LV_BTN_PART_MAIN, LV_STATE_DEFAULT, Convert(valueBar));
       settingsController.SetPTSColorBG(static_cast<Controllers::Settings::Colors>(valueBG));
       lv_obj_set_style_local_bg_color(timebar, LV_BTN_PART_MAIN, LV_STATE_DEFAULT, Convert(valueBG));
+      batteryIcon.SetColor(iconColor);
+      lv_obj_set_style_local_text_color(plugIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(bleIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(notificationIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(dateDayOfWeek, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(dateDay, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(dateMonth, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_line_color(stepGauge, LV_GAUGE_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(stepValue, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(stepIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
+      lv_obj_set_style_local_text_color(timeDD3, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, iconColor);
     }
     if (object == btnClose) {
       CloseMenu();

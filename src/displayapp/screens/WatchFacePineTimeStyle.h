@@ -99,6 +99,7 @@ namespace Pinetime {
         lv_obj_t* stepIcon;
         lv_obj_t* stepValue;
         lv_color_t needle_colors[1];
+        lv_color_t iconColor;
 
         BatteryIcon batteryIcon;
 
